@@ -7,10 +7,8 @@ export default defineNuxtConfig({
   },
   /* css: ['@/assets/css/main.css'], */
   image: {
-    shopify: {
-      baseURL: 'https://cdn.shopify.com/',
-    },
-    domains: ['cdn.shopify.com'],
+    provider: 'netlify',
+    domains: ['cdn.shopify.com']
   },
   modules: [
     '@nuxt/content',
