@@ -70,9 +70,9 @@ export interface Collections {
                 handle: string;
                 seo: Seo,
                 products: {
-                    edge: {
+                    edges: {
                         node: Product
-                    }
+                    }[]
                 }
             }
         }
