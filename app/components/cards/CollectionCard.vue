@@ -32,7 +32,7 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
 
 <template>
     <div class="shadow-lg" @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
-        <NuxtImg :src="hovered ? previewHoeveredImage.url : previewImage.url" fit="cover" format="webp" width="400" height="400"
+        <NuxtImg :src="hovered ? previewHoveredImage.url : previewImage.url" fit="cover" format="webp" width="400" height="400"
             :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md" />
         <div class="py-3">
             <h1 class="text-[15px] mb-1">{{ title }}</h1>
