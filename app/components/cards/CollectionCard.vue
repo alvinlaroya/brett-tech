@@ -4,6 +4,10 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    previewHoveredImage: {
+        type: Object,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -20,13 +24,15 @@ const props = defineProps({
 
 const { compareAtPriceRange, priceRange } = props;
 
+const hovered = ref(false);
+
 const isDiscounted = computed(() => compareAtPriceRange['maxVariantPrice']['amount'] - priceRange['maxVariantPrice']['amount'] > 0)
 const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['currencyCode'])
 </script>
 
 <template>
-    <div class="shadow-lg">
-        <NuxtImg :src="previewImage.url" fit="cover" format="webp" width="400" height="400"
+    <div class="shadow-lg" @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
+        <NuxtImg :src="hovered ? previewHoeveredImage.url : previewImage.url" fit="cover" format="webp" width="400" height="400"
             :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md" />
         <div class="py-3">
             <h1 class="text-[15px] mb-1">{{ title }}</h1>

@@ -3,18 +3,20 @@ import type { Collections } from '~/types/collections'
 
 const route = useRoute();
 
+const body = reactive({
+    handle: route.params.handle,
+    first: 10,
+    firstMedia: 10,
+    firstCollections: 10,
+    filters: []
+})
+
 const { data: collections } = await useAsyncData('collections', () =>
-  $fetch<Collections>('/api/collections/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      handle: route.params.handle,
-      first: 10,
-      firstMedia: 10,
-      firstCollections: 10,
-      filters: []
+    $fetch<Collections>('/api/collections/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
     })
-  })
 )
 
 const collectionTitle = computed(() => collections?.value?.collections?.data?.collectionByHandle.title);
@@ -38,12 +40,13 @@ const products = computed(() => collections.value?.collections?.data?.collection
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-                <CardsCollectionCard 
-                    v-for="{ node: product } in products" 
+                <CardsCollectionCard
+                    v-for="{ node: product } in products"
                     :key="product.id"
                     :preview-image="product.media.edges[0].node.previewImage" 
+                    :preview-hovered-image="product.media.edges[1].node.previewImage" 
                     :title="product.title"
-                    :compare-at-price-range="product.compareAtPriceRange"
+                    :compare-at-price-range="product.compareAtPriceRange" 
                     :price-range="product.priceRange"
                 />
             </div>
