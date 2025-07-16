@@ -1,8 +1,6 @@
-import type { H3Event } from 'h3'
-
 import { getCollectionByHandle } from '../../../queries/collections'
 
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
     const shopifyUrl = process.env.NUXT_SHOPIFY_URL
     const shopifyToken = process.env.NUXT_SHOPIFY_TOKEN
 
@@ -32,8 +30,4 @@ export default defineCachedEventHandler(async (event) => {
     return {
         collections
     }
-}, {
-    maxAge: 60 * 60,
-    getKey: (event: H3Event) => event.path
-    /* 1 hour */
 })
