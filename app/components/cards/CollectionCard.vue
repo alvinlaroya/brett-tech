@@ -27,7 +27,7 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
 <template>
     <div class="shadow-lg">
         <NuxtImg :src="previewImage.url.replace('https://cdn.shopify.com', '')" width="400" height="400"
-            modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md" />
+            :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md" />
         <div class="py-3">
             <h1 class="text-[15px] mb-1">{{ title }}</h1>
             <div class="flex gap-5">

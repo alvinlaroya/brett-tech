@@ -10,12 +10,7 @@ export default defineNuxtConfig({
     shopify: {
       baseURL: 'https://cdn.shopify.com/',
     },
-    providers: {
-      shopify: {
-        name: 'shopify',
-        provider: 'shopify'
-      }
-    }
+    domains: ['cdn.shopify.com'],
   },
   modules: [
     '@nuxt/content',
