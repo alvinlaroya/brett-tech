@@ -3,19 +3,20 @@ import type { Collections } from '~/types/collections'
 
 const route = useRoute();
 
-const body = reactive({
-    handle: route.params.handle,
-    first: 10,
-    firstMedia: 10,
-    firstCollections: 10,
-    filters: []
-})
+const handle = computed(() => route.params.handle)
 
-const { data: collections } = await useAsyncData(() => `collections-${route.params.handle}`, () =>
-    $fetch<Collections>('/api/collections/', {
+const { data: collections } = await useAsyncData(
+    () => `collections-${handle}`, 
+    () => $fetch<Collections>('/api/collections/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body
+        body: {
+            handle: route.params.handle,
+            first: 10,
+            firstMedia: 10,
+            firstCollections: 10,
+            filters: []
+        }
     }),
     {
         watch: [() => route.params.handle]  // <- this makes it reactive to changes
