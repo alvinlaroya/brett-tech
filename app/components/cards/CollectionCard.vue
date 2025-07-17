@@ -33,10 +33,10 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
 <template>
     <div class="shadow-lg" @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
         <div class="overflow-hidden">
-            <NuxtImg v-if="hovered" :src="previewHoveredImage.url" fit="cover" format="webp" width="400" height="400"
+            <NuxtImg v-show="hovered" :src="previewHoveredImage.url" fit="cover" format="webp" width="400" height="400"
                 :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md transition-all"
                 :class="{ 'scale-125': hovered }" />
-            <NuxtImg v-else :src="previewImage.url" fit="cover" format="webp" width="400" height="400"
+            <NuxtImg v-show="!hovered" :src="previewImage.url" fit="cover" format="webp" width="400" height="400"
                 :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md transition-all"
                 :class="{ 'scale-125': hovered }" />
         </div>
