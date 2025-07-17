@@ -33,22 +33,18 @@ const products = computed(() => collections.value?.collections?.data?.collection
 
 <template>
     <NuxtLayout name="collections" class="bg-black text-white">
-        <div class="max-w-screen-lg mx-auto px-4">
+        <div class="max-w-screen-xl mx-auto px-4">
             <div class="w-full mt-5 mb-7">
                 <h2 class="text-2xl lg:text-4xl font-semibold">{{ collectionTitle }}</h2>
                 <p class="mt-2 lg:mt-7 text-sm lg:text-xl">{{ collectionDescription }}</p>
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-                <CardsCollectionCard
-                    v-for="{ node: product } in products"
-                    :key="product.id"
-                    :preview-image="product.media.edges[0].node.previewImage" 
-                    :preview-hovered-image="product.media.edges[1].node.previewImage" 
-                    :title="product.title"
-                    :compare-at-price-range="product.compareAtPriceRange" 
-                    :price-range="product.priceRange"
-                />
+                <NuxtLink v-for="{ node: product } in products" :key="product.id" :to="`/products/${product.handle}`">
+                    <CardsCollectionCard :preview-image="product.media.edges[0].node.previewImage"
+                        :preview-hovered-image="product.media.edges[1].node.previewImage" :title="product.title"
+                        :compare-at-price-range="product.compareAtPriceRange" :price-range="product.priceRange" />
+                </NuxtLink>
             </div>
         </div>
     </NuxtLayout>

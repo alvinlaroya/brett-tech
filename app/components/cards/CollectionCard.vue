@@ -32,19 +32,16 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
 
 <template>
     <div class="shadow-lg" @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
-        <NuxtImg 
-            :src="hovered ? previewHoveredImage.url : previewImage.url" 
-            fit="cover" 
-            format="webp" 
-            width="400" 
-            height="400"
-            :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" 
-            class="rounded-md" 
-        />
+        <div class="overflow-hidden">
+            <NuxtImg :src="hovered ? previewHoveredImage.url : previewImage.url" fit="cover" format="webp" width="400"
+                height="400" :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }"
+                class="rounded-md transition-all" :class="{ 'scale-125': hovered }" />
+        </div>
+        <BadgesSaleFlag v-if="isDiscounted" />
         <div class="py-3">
             <h1 class="text-[15px] mb-1">{{ title }}</h1>
             <div class="flex gap-5">
-                <p :class="{ 'line-through': isDiscounted }" class="text-red-500">{{
+                <p :class="{ 'line-through': isDiscounted }" class="text-gray-400">{{
                     compareAtPriceRange['maxVariantPrice']['amount'] }} {{ currencyCode }}</p>
                 <p class="font-semibold">{{ priceRange['maxVariantPrice']['amount'] }} {{ currencyCode }}</p>
             </div>
