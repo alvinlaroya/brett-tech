@@ -28,7 +28,7 @@ export default defineCachedEventHandler(async (event) => {
     })
 
     return {
-        collections
+        collections: collections || []
     }
 }, {
     maxAge: 60 * 60,
