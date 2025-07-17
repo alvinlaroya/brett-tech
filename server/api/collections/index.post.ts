@@ -31,7 +31,7 @@ export default defineCachedEventHandler(async (event) => {
         collections: collections || []
     }
 }, {
-    maxAge: 60 * 60,
-    getKey: (event: H3Event) => event.path
+    /* maxAge: 60 * 60,
+    getKey: (event: H3Event) => event.path */
     /* 1 hour */
 })

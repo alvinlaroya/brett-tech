@@ -6,7 +6,7 @@ const route = useRoute();
 const handle = computed(() => route.params.handle)
 
 const { data: collections } = await useAsyncData(
-    () => `collections-${handle}`, 
+    `collections:${handle}`,
     () => $fetch<Collections>('/api/collections/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -19,7 +19,7 @@ const { data: collections } = await useAsyncData(
         }
     }),
     {
-        watch: [() => route.params.handle]  // <- this makes it reactive to changes
+        watch: [handle]
     }
 )
 
