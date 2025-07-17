@@ -16,7 +16,10 @@ const { data: collections } = await useAsyncData(() => `collections-${route.para
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body
-    })
+    }),
+    {
+        watch: [() => route.params.handle]  // <- this makes it reactive to changes
+    }
 )
 
 const collectionTitle = computed(() => collections?.value?.collections?.data?.collectionByHandle.title);
