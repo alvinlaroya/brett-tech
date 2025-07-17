@@ -11,7 +11,7 @@ const body = reactive({
     filters: []
 })
 
-const { data: collections } = await useAsyncData('collections', () =>
+const { data: collections } = await useAsyncData(`collections-${route.params.handle}`, () =>
     $fetch<Collections>('/api/collections/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
