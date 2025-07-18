@@ -62,7 +62,7 @@ const route = useRoute();
                 </div>
             </div>
         </nav>
-        <main class="mt-[4rem] bg-[#121212] py-3">
+        <main class="mt-[4rem] py-3">
             <div class="max-w-screen-xl mx-auto px-10">
                 <slot />
             </div>
