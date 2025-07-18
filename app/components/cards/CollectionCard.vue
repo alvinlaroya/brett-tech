@@ -34,8 +34,8 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
     <div @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
         <div class="overflow-hidden rounded-md">
             <div :class="{ 'transition-all scale-125': hovered }">
-                <NuxtImg :src="previewImage?.url" fit="cover" format="webp" width="400" height="400"
-                    :modifiers="{ format: 'webp', crop: 'center', padColor: 'ecebeb' }" />
+                <NuxtImg :src="previewImage?.url" fit="cover" format="webp"
+                    :modifiers="{ crop: 'center', padColor: 'ecebeb' }" />
             </div>
         </div>
         <BadgesSaleFlag v-if="isDiscounted" />
