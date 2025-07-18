@@ -1,52 +1,62 @@
-<script lang="ts" setup>
-import type { Collections } from '~/types/collections'
+<script setup>
 
 const route = useRoute();
 
 const handle = computed(() => route.params.handle)
 
-const { data: collections } = await useAsyncData(
-    `collections:${handle}`,
-    () => $fetch<Collections>('/api/collections/', {
+const { data } = await useAsyncData(`collections:${handle.value}`, () =>
+    $fetch('/api/collections', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: {
-            handle: route.params.handle,
+            handle: handle.value,
             first: 10,
             firstMedia: 10,
             firstCollections: 10,
+            sortKey: null,
+            reverse: false,
+            after: null,
             filters: []
         }
     }),
     {
-        watch: [handle]
+        transform: (response) => {
+            // Transform the API response
+            return {
+                collection: response.collection,
+                products: response.collection.products.edges.map(item => item.node)
+            }
+
+        },
+        watch: [handle.value]
     }
 )
 
-const collectionTitle = computed(() => collections?.value?.collections?.data?.collectionByHandle.title);
-const collectionDescription = computed(() => collections?.value?.collections?.data?.collectionByHandle.description);
+const collection = computed(() => data.value.collection)
+const products = computed(() => data.value.products)
+
+
+const collectionTitle = computed(() => data.value.collection?.title);
+const collectionDescription = computed(() => data.value.collection?.description);
 
 useSeoMeta({
     title: collectionTitle,
     description: collectionDescription,
 })
-
-const products = computed(() => collections.value?.collections?.data?.collectionByHandle.products.edges)
 </script>
 
 
 <template>
-    <NuxtLayout name="collections" class="bg-black text-white">
-        <div class="max-w-screen-xl mx-auto px-4">
+    <NuxtLayout name="collections" class="">
+        <div>
             <div class="w-full mt-5 mb-7">
-                <h2 class="text-2xl lg:text-4xl font-semibold">{{ collectionTitle }}</h2>
-                <p class="mt-2 lg:mt-7 text-sm lg:text-xl">{{ collectionDescription }}</p>
+                <h2 class="text-2xl lg:text-4xl font-semibold text-white">{{ collectionTitle }}</h2>
+                <p class="mt-2 lg:mt-7 text-sm lg:text-xl text-gray-200">{{ collectionDescription }}</p>
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-                <NuxtLink v-for="{ node: product } in products" :key="product.id" :to="`/products/${product.handle}`">
-                    <CardsCollectionCard :preview-image="product.media.edges[0].node.previewImage"
-                        :preview-hovered-image="product.media.edges[1].node.previewImage" :title="product.title"
+                <NuxtLink v-for="product in products" :key="product.id" :to="`/products/${product.handle}`">
+                    <CardsCollectionCard :preview-image="product.media.edges[0]?.node?.previewImage"
+                        :preview-hovered-image="product.media.edges[1]?.node?.previewImage" :title="product.title"
                         :compare-at-price-range="product.compareAtPriceRange" :price-range="product.priceRange" />
                 </NuxtLink>
             </div>

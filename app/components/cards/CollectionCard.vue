@@ -31,22 +31,20 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
 </script>
 
 <template>
-    <div class="shadow-lg" @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
-        <div class="overflow-hidden">
-            <NuxtImg v-show="hovered" :src="previewHoveredImage.url" fit="cover" format="webp" width="400" height="400"
-                :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md transition-all"
-                :class="{ 'scale-125': hovered }" />
-            <NuxtImg v-show="!hovered" :src="previewImage.url" fit="cover" format="webp" width="400" height="400"
-                :modifiers="{ format: 'webp', crop: 'center', padColor: 'ffffff' }" class="rounded-md transition-all"
-                :class="{ 'scale-125': hovered }" />
+    <div @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
+        <div class="overflow-hidden rounded-md">
+            <div :class="{ 'transition-all scale-125': hovered }">
+                <NuxtImg :src="previewImage?.url" fit="cover" format="webp" width="400" height="400"
+                    :modifiers="{ format: 'webp', crop: 'center', padColor: 'ecebeb' }" />
+            </div>
         </div>
         <BadgesSaleFlag v-if="isDiscounted" />
         <div class="py-3">
-            <h1 class="text-[15px] mb-1">{{ title }}</h1>
+            <h1 class="text-[15px] mb-1 text-white">{{ title }}</h1>
             <div class="flex gap-5">
                 <p :class="{ 'line-through': isDiscounted }" class="text-gray-400">{{
                     compareAtPriceRange['maxVariantPrice']['amount'] }} {{ currencyCode }}</p>
-                <p class="font-semibold">{{ priceRange['maxVariantPrice']['amount'] }} {{ currencyCode }}</p>
+                <p class="font-semibold text-white">{{ priceRange['maxVariantPrice']['amount'] }} {{ currencyCode }}</p>
             </div>
         </div>
     </div>
