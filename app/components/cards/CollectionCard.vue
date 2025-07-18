@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps({
     index: {
-        type: number,
+        type: Number,
         required: true
     },
     previewImage: {
@@ -43,7 +43,7 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
                     :alt="previewImage?.altText || `img-${index}`"
                     fit="cover" 
                     format="webp" 
-                    width="300" 
+                    width="400" 
                     height="400"
                     :modifiers="{ crop: 'center', padColor: 'ecebeb' }" 
                     :preload="index <= 4"
