@@ -1,5 +1,9 @@
 <script setup>
 const props = defineProps({
+    index: {
+        type: number,
+        required: true
+    },
     previewImage: {
         type: Object,
         required: true
@@ -34,8 +38,16 @@ const currencyCode = computed(() => compareAtPriceRange['maxVariantPrice']['curr
     <div @mouseover="() => hovered = true" @mouseleave="() => hovered = false">
         <div class="overflow-hidden rounded-md">
             <div :class="{ 'transition-all scale-125': hovered }">
-                <NuxtImg :src="previewImage?.url" fit="cover" format="webp"
-                    :modifiers="{ crop: 'center', padColor: 'ecebeb' }" />
+                <NuxtImg 
+                    :src="previewImage?.url" 
+                    :alt="previewImage?.altText || `img-${index}`"
+                    fit="cover" 
+                    format="webp" 
+                    width="300" 
+                    height="400"
+                    :modifiers="{ crop: 'center', padColor: 'ecebeb' }" 
+                    :preload="index <= 4"
+                />
             </div>
         </div>
         <BadgesSaleFlag v-if="isDiscounted" />

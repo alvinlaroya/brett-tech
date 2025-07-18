@@ -54,8 +54,8 @@ useSeoMeta({
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-                <NuxtLink v-for="product in products" :key="product.id" :to="`/products/${product.handle}`">
-                    <CardsCollectionCard :preview-image="product.media.edges[0]?.node?.previewImage"
+                <NuxtLink v-for="(product, i) in products" :key="product.id" :to="`/products/${product.handle}`">
+                    <CardsCollectionCard :index="i" :preview-image="product.media.edges[0]?.node?.previewImage"
                         :preview-hovered-image="product.media.edges[1]?.node?.previewImage" :title="product.title"
                         :compare-at-price-range="product.compareAtPriceRange" :price-range="product.priceRange" />
                 </NuxtLink>
