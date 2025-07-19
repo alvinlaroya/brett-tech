@@ -6,10 +6,10 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   /* css: ['@/assets/css/main.css'], */
-  /* image: {
+  image: {
     provider: 'netlify',
     domains: ['cdn.shopify.com']
-  }, */
+  },
   icon: {
     mode: 'css',
     cssLayer: 'base'
