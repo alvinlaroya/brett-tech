@@ -6,14 +6,19 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   /* css: ['@/assets/css/main.css'], */
-  image: {
+  /* image: {
     provider: 'netlify',
     domains: ['cdn.shopify.com']
+  }, */
+  icon: {
+    mode: 'css',
+    cssLayer: 'base'
   },
   modules: [
     '@nuxt/content',
     '@nuxt/icon',
     '@nuxt/image',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    'nuxt-swiper'
   ]
 })
